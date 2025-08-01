@@ -1,0 +1,44 @@
+{
+  "vehiculos-activos": [
+    {
+      "id": 1,
+      "placa": "ABC-123",
+      "tipo": "Auto/Camioneta",
+      "hora-entrada": "08:30",
+      "hora-salida": "09:30",
+      "monto": "S/ 12"
+    },
+    {
+      "id": 2,
+      "placa": "XYZ-789",
+      "tipo": "Motocicleta",
+      "hora-entrada": "07:15",
+      "hora-salida": "08:00",
+      "monto": "S/ 6"
+    },
+    {
+      "id": 3,
+      "placa": "LMN-456",
+      "tipo": "Camión",
+      "hora-entrada": "06:00",
+      "hora-salida": "10:00",
+      "monto": "S/ 20"
+    },
+    {
+      "id": 4,
+      "placa": "DEF-234",
+      "tipo": "Auto/Camioneta",
+      "hora-entrada": "09:00",
+      "hora-salida": "09:45",
+      "monto": "S/ 8"
+    },
+    {
+      "id": 5,
+      "placa": "GHI-567",
+      "tipo": "Motocicleta",
+      "hora-entrada": "08:30",
+      "hora-salida": "09:15",
+      "monto": "S/ 5"
+    }
+  ]
+}

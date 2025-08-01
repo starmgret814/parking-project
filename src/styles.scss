@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.card-style {
+  background: white;
+  border-radius: 0.5rem; /* 8px */
+  border: 1px solid #e5e7eb !important; /* gris claro */
+  padding: 2px;
+  width: 100%;
+  min-width: 240px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.card-style:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+
+.poppins-font {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.fi.fi-rs-search {
+  font-size: 12px !important;
+  color: rgba(0, 0, 0, 0.4) !important;
+}

@@ -1,0 +1,101 @@
+<h2 mat-dialog-title class="f-w-600">Agregar Nuevo Usuario</h2>
+
+<div mat-dialog-content>
+  <!-- Nombre completo -->
+  <div class="form-group m-t-5 m-b-0">
+    <label class="f-w-500 heading-tag">Nombre completo *</label>
+    <mat-form-field appearance="outline" class="w-100 m-t-5">
+      <input
+        matInput
+        placeholder="Ingrese el nombre completo"
+        name="fullName"
+        required
+        [(ngModel)]="fullName"
+        #fullNameInput="ngModel"
+      />
+      <mat-error *ngIf="fullNameInput.invalid && fullNameInput.touched">
+        El nombre completo es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Correo electrónico -->
+  <div class="form-group m-b-0">
+    <label class="f-w-500 heading-tag">Correo electrónico *</label>
+    <mat-form-field appearance="outline" class="w-100 m-t-5">
+      <input
+        matInput
+        type="email"
+        name="email"
+        required
+        [(ngModel)]="email"
+        #emailInput="ngModel"
+        placeholder="correo@ejemplo.com"
+      />
+      <mat-error *ngIf="emailInput.invalid && emailInput.touched">
+        El correo electrónico es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Rol -->
+  <div class="form-group m-b-0">
+    <mat-label class="f-w-500 heading-tag">Rol *</mat-label>
+    <mat-form-field appearance="outline" class="w-100 m-t-2">
+      <mat-select
+        name="role"
+        required
+        [(ngModel)]="role"
+        #roleInput="ngModel"
+        placeholder="Seleccione un rol"
+      >
+        <mat-option *ngFor="let r of roles" [value]="r">{{ r }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="roleInput.invalid && roleInput.touched">
+        El rol es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Turno -->
+  <div class="form-group m-b-0">
+    <mat-label class="f-w-500 heading-tag">Turno asignado *</mat-label>
+    <mat-form-field appearance="outline" class="w-100 m-t-2">
+      <mat-select
+        name="shift"
+        required
+        [(ngModel)]="shift"
+        #shiftInput="ngModel"
+        placeholder="Seleccione un turno"
+      >
+        <mat-option *ngFor="let t of shifts" [value]="t">{{ t }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="shiftInput.invalid && shiftInput.touched">
+        El turno es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Funcionalidades disponibles -->
+  <div class="form-group-check-box">
+    <label class="f-w-600 d-block mb-2 heading-tag">
+      Funcionalidades disponibles
+    </label>
+
+    <mat-selection-list
+      [(ngModel)]="selectedFeatures"
+      [multiple]="true"
+      class="selection-wrapper"
+    >
+      <div class="two-column-checkboxes">
+        <mat-list-option
+          *ngFor="let feature of availableFeatures"
+          [value]="feature"
+          class="custom-option"
+        >
+          {{ feature }}
+        </mat-list-option>
+      </div>
+    </mat-selection-list>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+@use "../variables" as *;
+
+::ng-deep .form-content {
+  margin: 0;
+  padding: 0;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0 !important; // quita el padding del contenedor
+}
+
+::ng-deep .mat-mdc-dialog-actions {
+  margin: 0 !important; // quita margen de botones
+  padding: 0 24px 12px !important; // opcional: solo padding lateral y un poquito abajo
+  justify-content: flex-start !important; // para alinear los botones a la izquierda
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group-check-box {
+  margin-bottom: 20px;
+  align-content: center;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field .mat-form-field-label {
+  white-space: normal;
+  overflow: visible;
+  max-width: 100%;
+}
+
+mat-checkbox {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.feature-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+  margin-top: 0px;
+
+  mat-checkbox {
+    margin-bottom: -4px;
+
+    .mat-checkbox-layout {
+      display: flex;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    &:hover .mat-checkbox-inner-container {
+      box-shadow: none !important; // quita sombra al hacer hover
+    }
+
+    .mat-checkbox-inner-container {
+      box-shadow: none !important; // quita sombra incluso seleccionando
+    }
+  }
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+button {
+  min-width: 100px;
+  border: 1px solid #ccc; /* Consistent border for buttons */
+  border-radius: 4px;
+}
+
+button[mat-stroked-button] {
+  background: #fff;
+  color: #ff0000; /* Red color for Cancel button */
+}
+button[mat-flat-button] {
+  background: #1976d2; /* Blue color for Add button */
+  color: #fff;
+}
+
+.heading-tag {
+  color: #000000 !important; /* Black color for headings */
+}
+
+.selection-wrapper {
+  padding: 0;
+}
+
+.two-column-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+}
+
+::ng-deep mat-list-option.custom-option {
+  margin: 0 !important;
+}

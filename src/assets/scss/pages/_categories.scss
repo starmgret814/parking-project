@@ -1,0 +1,42 @@
+@use "../variables" as *;
+
+.icon-blue-sm {
+  color: #1c3a8a !important;
+}
+
+.icon-blue-sm:hover {
+  transform: scale(0.96);
+}
+
+.icon-blue-lg {
+  color: #1c3a8a !important;
+}
+
+.icon-blue-lg:hover {
+  transform: scale(1.06);
+}
+
+.custom-no-space {
+  /* Elimina padding y margin inferior */
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+
+  /* Ajusta el contenedor interno */
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+
+  ::ng-deep .mat-form-field-flex {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  ::ng-deep .mat-form-field-outline {
+    bottom: 0 !important;
+  }
+
+  /* Asegura que no haya espacio para hint o errores */
+  ::ng-deep .mat-form-field-subscript-wrapper {
+    display: none !important;
+  }
+}

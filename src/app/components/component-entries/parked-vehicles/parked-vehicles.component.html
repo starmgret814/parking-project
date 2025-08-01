@@ -1,0 +1,89 @@
+<mat-card class="card-style">
+  <mat-card-content>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="width: 100%; height: 100%"
+    ></div>
+    <mat-card-title class="f-s-24 f-w-600"
+      >Vehículos Estacionados</mat-card-title
+    >
+
+    <mat-form-field appearance="outline" class="w-100 m-t-12 m-b-16">
+      <mat-label class="transparent-text">Buscar</mat-label>
+      <i matPrefix class="fi fi-rs-search m-l-8"></i>
+      <input
+        matInput
+        class="placeholder-light"
+        placeholder="Buscar por placa"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearch()"
+      />
+    </mat-form-field>
+
+    <ng-container *ngIf="filteredVehicles.length > 0; else noData">
+      <mat-card
+        *ngFor="let vehicle of filteredVehicles"
+        class="mb-3"
+        style="border: 1px solid #ddd; padding: 16px"
+      >
+        <div
+          class="d-flex justify-content-between align-items-center flex-wrap"
+          style="margin-left: 10px"
+        >
+          <!-- Sección izquierda -->
+          <div style="flex: 1; max-width: 130px; min-width: 130px">
+            <div class="f-w-575 f-s-18">{{ vehicle.plate }}</div>
+
+            <div class="m-t-8">
+              <span class="vehicle-badge f-w-500 f-s-13">
+                {{ vehicle.type }}
+              </span>
+            </div>
+
+            <div class="muted-text f-s-14 m-t-8">
+              Tiempo: {{ formattedElapsedTime }}
+            </div>
+          </div>
+
+          <!-- Sección centro -->
+          <div class="muted-text m-t-24">
+            <div class="f-s-14 text-muted">
+              Fecha: {{ vehicle.entryTime | date: "dd/MM/yyyy" }}<br />
+              Entrada: {{ vehicle.entryTime | date: "hh:mm:ss a" }}
+            </div>
+
+            <div class="m-t-8">
+              <button
+                mat-stroked-button
+                class="entries-button-secondary"
+                color="primary"
+              >
+                Cancelar Registro
+              </button>
+            </div>
+          </div>
+
+          <!-- Sección derecha -->
+          <div class="text-end" style="margin-right: 10px">
+            <div class="poppins-font muted-text f-s-14">Monto Pagado</div>
+            <div class="f-w-600 f-s-28 m-t-8" style="color: #000000">
+              S/ {{ calculateAmount(vehicle) | number: "1.2-2" }}
+            </div>
+
+            <button
+              mat-flat-button
+              class="entries-button-primary m-t-10"
+              (click)="exitVehicle(vehicle)"
+            >
+              Registrar Salida
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </ng-container>
+
+    <ng-template #noData>
+      <p class="text-muted text-center m-t-16">No hay vehículos activos.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

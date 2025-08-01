@@ -1,0 +1,64 @@
+<div
+  class="blank-layout-container justify-content-center align-items-center bg-light"
+>
+  <div
+    class="position-relative row w-100 h-100 bg-gredient justify-content-center"
+  >
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="width: 100%; height: 100%"
+    >
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']">
+              <img
+                src="./assets/images/logos/logo.svg"
+                class="align-middle"
+                alt="logo"
+              />
+            </a>
+          </div>
+
+          <form class="m-t-10" [formGroup]="form" (ngSubmit)="submit()">
+            <mat-label class="f-s-16 f-w-500 m-b-12 d-block">Usuario</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                class="input-auth"
+                placeholder="Ingrese su usuario"
+                formControlName="correo"
+              />
+            </mat-form-field>
+
+            <mat-label class="f-s-16 f-w-500 m-t-6 m-b-12 d-block"
+              >Contraseña</mat-label
+            >
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input
+                matInput
+                class="input-auth"
+                placeholder="Ingrese su contraseña"
+                type="password"
+                formControlName="contrasena"
+              />
+            </mat-form-field>
+
+            <div class="d-flex align-items-center m-b-12">
+              <a
+                [routerLink]="['/']"
+                class="link-blue f-w-600 text-decoration-none m-x-auto f-s-14"
+              >
+                ¿Olvidaste la contraseña?
+              </a>
+            </div>
+
+            <button mat-flat-button color="primary" class="w-100" type="submit">
+              Iniciar Sesión
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

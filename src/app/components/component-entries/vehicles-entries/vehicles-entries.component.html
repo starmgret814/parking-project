@@ -1,0 +1,49 @@
+<mat-card class="card-style">
+  <mat-card-content>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="width: 100%; height: 100%"
+    ></div>
+    <mat-card-title class="f-s-24 f-w-600 m-b-24">
+      Registrar Entrada de Vehículo
+    </mat-card-title>
+
+    <!-- Placa -->
+    <mat-form-field
+      class="w-100 m-b-16"
+      style="padding-top: 20px"
+      appearance="outline"
+      color="primary"
+    >
+      <mat-label>Placa del Vehículo</mat-label>
+      <input
+        matInput
+        class="input-auth"
+        placeholder="EJ: ABC-123"
+        [(ngModel)]="vehiclePlate"
+      />
+    </mat-form-field>
+
+    <!-- Tipo de Vehículo -->
+    <mat-form-field class="w-100 m-b-24" appearance="outline">
+      <mat-label>Tipo de Vehículo</mat-label>
+      <mat-select [(ngModel)]="vehicleType">
+        <mat-option *ngFor="let type of vehicleTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botón -->
+    <button mat-flat-button color="primary" class="w-100" type="submit">
+      Registrar Entrada
+    </button>
+  </mat-card-content>
+</mat-card>
+
+<style>
+  input::placeholder {
+    color: #adb0bb;
+    opacity: 1;
+  }
+</style>

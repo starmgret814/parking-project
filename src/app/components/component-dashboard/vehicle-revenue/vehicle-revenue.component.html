@@ -1,0 +1,22 @@
+<mat-card class="card-style">
+  <mat-card-content>
+    <div class="d-flex w-100">
+      <mat-card-title class="dashboard-title"
+        >Ingresos del día por Tipo de Vehículo</mat-card-title
+      >
+      <div class="m-l-auto"></div>
+    </div>
+    <apx-chart
+      [series]="vehicleRevenueChart.series"
+      [dataLabels]="vehicleRevenueChart.dataLabels"
+      [chart]="vehicleRevenueChart.chart"
+      [legend]="vehicleRevenueChart.legend"
+      [xaxis]="vehicleRevenueChart.xaxis"
+      [yaxis]="vehicleRevenueChart.yaxis"
+      [grid]="vehicleRevenueChart.grid"
+      [stroke]="vehicleRevenueChart.stroke"
+      [tooltip]="vehicleRevenueChart.tooltip"
+      [plotOptions]="vehicleRevenueChart.plotOptions"
+    ></apx-chart>
+  </mat-card-content>
+</mat-card>

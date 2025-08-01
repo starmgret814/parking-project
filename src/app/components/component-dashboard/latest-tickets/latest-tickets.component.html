@@ -1,0 +1,74 @@
+<mat-card class="card-style-dashboard">
+  <mat-card-content>
+    <div class="d-flex">
+      <div class="m-r-auto">
+        <mat-card-title class="dashboard-title">
+          Últimos Tickets Generados
+        </mat-card-title>
+      </div>
+    </div>
+
+    <div class="table-responsive m-t-4">
+      <table mat-table [dataSource]="dataSource" class="w-100">
+        <!-- # -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">#</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <!-- Hora Ingreso -->
+        <ng-container matColumnDef="horaIngreso">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Hora Ingreso
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.horaIngreso }}</td>
+        </ng-container>
+
+        <!-- Hora Salida -->
+        <ng-container matColumnDef="horaSalida">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Hora Salida
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.horaSalida }}</td>
+        </ng-container>
+
+        <!-- Placa -->
+        <ng-container matColumnDef="placa">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Placa
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.placa }}</td>
+        </ng-container>
+
+        <!-- Tipo -->
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Tipo</th>
+          <td mat-cell *matCellDef="let element">{{ element.tipo }}</td>
+        </ng-container>
+
+        <!-- Monto -->
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Monto
+          </th>
+          <td mat-cell *matCellDef="let element">S/ {{ element.monto }}</td>
+        </ng-container>
+
+        <!-- Hora Total -->
+        <ng-container matColumnDef="horaTotal">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Hora Total
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.horaTotal }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="example-element-row"
+        ></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

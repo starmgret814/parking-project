@@ -1,0 +1,92 @@
+<mat-card class="card-style">
+  <mat-card-content>
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="width: 100%; height: 100%"
+    ></div>
+    <mat-card-title class="f-s-24 f-w-600 m-b-24">
+      Registrar Salida de Vehículo
+    </mat-card-title>
+
+    <mat-label class="poppins-font f-s-16 f-w-400"
+      >Placa del Vehículo
+    </mat-label>
+    <!-- Placa -->
+    <mat-form-field
+      class="w-100"
+      style="padding-top: 10px; padding-bottom: 10px"
+      appearance="outline"
+      color="primary"
+    >
+      <input
+        matInput
+        class="input-auth"
+        placeholder="EJ: ABC-123"
+        [(ngModel)]="vehiclePlate"
+      />
+    </mat-form-field>
+
+    <mat-label class="poppins-font f-s-16 f-w-400 m-b-10"
+      >Tipo de Vehículo
+    </mat-label>
+    <!-- Tipo de Vehículo -->
+    <mat-form-field
+      class="w-100"
+      style="padding-top: 10px; padding-bottom: 10px"
+      appearance="outline"
+    >
+      <input matInput [readonly]="true" [value]="'Camioneta'" />
+    </mat-form-field>
+
+    <mat-label class="poppins-font f-s-16 f-w-400 m-b-10"
+      >Hora de Entrada
+    </mat-label>
+    <!-- Hora de entrada -->
+    <mat-form-field
+      class="w-100"
+      style="padding-top: 10px; padding-bottom: 10px"
+      appearance="outline"
+      color="primary"
+    >
+      <input matInput [readonly]="true" [value]="'08:30'" />
+    </mat-form-field>
+
+    <mat-label class="poppins-font f-s-16 f-w-400 m-b-10"
+      >Hora de Salida
+    </mat-label>
+    <!-- Hora de Salida -->
+    <mat-form-field
+      class="w-100"
+      style="padding-top: 10px; padding-bottom: 10px"
+      appearance="outline"
+      color="primary"
+    >
+      <input matInput [readonly]="true" [value]="'09:30'" />
+    </mat-form-field>
+
+    <mat-label class="poppins-font f-s-16 f-w-400 m-b-10"
+      >Monto a pagar
+    </mat-label>
+    <!-- Monto a pagar -->
+    <mat-form-field
+      class="w-100"
+      style="padding-top: 10px; padding-bottom: 10px"
+      appearance="outline"
+      color="primary"
+    >
+      <input matInput [disabled]="true" [value]="'--'" />
+    </mat-form-field>
+
+    <!-- Botón -->
+    <button mat-flat-button color="primary" class="w-100" type="submit">
+      Registrar Entrada
+    </button>
+  </mat-card-content>
+</mat-card>
+
+<style>
+  input::placeholder {
+    color: #adb0bb;
+    opacity: 1;
+  }
+</style>

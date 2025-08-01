@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center align-items-center" style="margin: 0">
+  <div class="branding" style="margin: 0">
+    <app-branding></app-branding>
+  </div>
+
+  @if (showToggle) {
+    <a
+      href="javascript:void(0)"
+      (click)="toggleMobileNav.emit()"
+      class="d-flex justify-content-center ng-star-inserted icon-40 align-items-center"
+    >
+      <i-tabler name="x" class="icon-20 d-flex"></i-tabler>
+    </a>
+  }
+</div>
