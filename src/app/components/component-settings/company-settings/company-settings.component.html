@@ -1,0 +1,57 @@
+<mat-card class="company-settings-card">
+  <mat-card-title>Ajustes de la Empresa</mat-card-title>
+  <mat-card-subtitle>Información de la Empresa</mat-card-subtitle>
+
+  <form [formGroup]="companyForm">
+    <div class="form-container">
+      <!-- Parte izquierda -->
+      <div class="left-column">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre de la Empresa</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>RUC</mat-label>
+          <input matInput formControlName="ruc" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="address" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Tolerancia (HH:MM)</mat-label>
+          <input matInput formControlName="tolerance" type="time" />
+        </mat-form-field>
+      </div>
+
+      <!-- Parte derecha -->
+      <div class="right-column">
+        <div class="logo-preview">
+          <label>Logo de la Empresa</label>
+          <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo" />
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>URL del Logo</mat-label>
+          <input matInput [value]="logoPreview" readonly />
+        </mat-form-field>
+
+        <label>Subir Archivo</label>
+        <input type="file" (change)="onFileSelected($event)" />
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="button-group">
+      <button mat-flat-button color="primary" (click)="saveChanges()">
+        <mat-icon>save</mat-icon> Guardar Cambios
+      </button>
+      <button mat-stroked-button color="primary" (click)="resetForm()">
+        <mat-icon>refresh</mat-icon> Restablecer
+      </button>
+    </div>
+  </form>
+</mat-card>

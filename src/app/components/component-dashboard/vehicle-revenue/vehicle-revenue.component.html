@@ -1,22 +1,29 @@
-<mat-card class="card-style">
+<mat-card
+  class="card-style-dashboard"
+  *ngIf="
+    vehicleRevenueChart &&
+    vehicleRevenueChart.series &&
+    vehicleRevenueChart.series.length > 0
+  "
+>
   <mat-card-content>
     <div class="d-flex w-100">
-      <mat-card-title class="dashboard-title"
-        >Ingresos del día por Tipo de Vehículo</mat-card-title
-      >
+      <mat-card-title class="dashboard-title">
+        Ingresos del día por Tipo de Vehículo
+      </mat-card-title>
       <div class="m-l-auto"></div>
     </div>
     <apx-chart
-      [series]="vehicleRevenueChart.series"
-      [dataLabels]="vehicleRevenueChart.dataLabels"
-      [chart]="vehicleRevenueChart.chart"
-      [legend]="vehicleRevenueChart.legend"
-      [xaxis]="vehicleRevenueChart.xaxis"
-      [yaxis]="vehicleRevenueChart.yaxis"
-      [grid]="vehicleRevenueChart.grid"
-      [stroke]="vehicleRevenueChart.stroke"
-      [tooltip]="vehicleRevenueChart.tooltip"
-      [plotOptions]="vehicleRevenueChart.plotOptions"
+      [series]="vehicleRevenueChart?.series"
+      [chart]="vehicleRevenueChart?.chart"
+      [xaxis]="vehicleRevenueChart?.xaxis"
+      [yaxis]="vehicleRevenueChart?.yaxis"
+      [dataLabels]="vehicleRevenueChart?.dataLabels"
+      [plotOptions]="vehicleRevenueChart?.plotOptions"
+      [tooltip]="vehicleRevenueChart?.tooltip"
+      [stroke]="vehicleRevenueChart?.stroke"
+      [legend]="vehicleRevenueChart?.legend"
+      [grid]="vehicleRevenueChart?.grid"
     ></apx-chart>
   </mat-card-content>
 </mat-card>

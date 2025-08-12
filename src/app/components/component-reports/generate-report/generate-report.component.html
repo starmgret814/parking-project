@@ -1,0 +1,133 @@
+<mat-card class="card-style">
+  <mat-card-content>
+    <!-- Título -->
+    <div class="d-flex flex-column gap-3">
+      <div class="m-r-auto m-b-24 m-t-5">
+        <mat-card-title class="f-s-24 f-w-600">Generar Reporte</mat-card-title>
+      </div>
+
+      <!-- DatePicker -->
+
+      <div
+        class="m-r-24"
+        style="
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-bottom: 1rem;
+          width: 285px;
+        "
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Seleccione un rango de fechas</mat-label>
+          <mat-date-range-input [rangePicker]="rangePicker">
+            <input matStartDate placeholder="Fecha Inicio" />
+            <input matEndDate placeholder="Fecha Fin" />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="rangePicker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker>
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Cancelar</button>
+              <button mat-flat-button matDateRangePickerApply>Aplicar</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <!-- Botones alineados a la derecha -->
+
+      <div
+        class="m-r-24"
+        style="display: flex; justify-content: flex-end; line-height: 36.5px"
+      >
+        <button
+          mat-flat-button
+          color="primary"
+          style="line-height: 36.5px; height: 36.5px"
+        >
+          Buscar
+        </button>
+      </div>
+
+      <div
+        style="display: flex; justify-content: flex-end; line-height: 36.5px"
+      >
+        <button
+          mat-flat-button
+          color="primary"
+          style="line-height: 36.5px; height: 36.5px"
+        >
+          Exportar a Excel
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabla de datos -->
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="w-100">
+        <!-- # -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">#</th>
+          <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
+        <!-- Hora Ingreso -->
+        <ng-container matColumnDef="horaIngreso">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Hora Ingreso
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.horaIngreso }}</td>
+        </ng-container>
+
+        <!-- Hora Salida -->
+        <ng-container matColumnDef="horaSalida">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Hora Salida
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.horaSalida }}</td>
+        </ng-container>
+
+        <!-- Placa -->
+        <ng-container matColumnDef="placa">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Placa
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.placa }}</td>
+        </ng-container>
+
+        <!-- Tipo -->
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Tipo</th>
+          <td mat-cell *matCellDef="let element">{{ element.tipo }}</td>
+        </ng-container>
+
+        <!-- Monto -->
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Monto
+          </th>
+          <td mat-cell *matCellDef="let element">S/ {{ element.monto }}</td>
+        </ng-container>
+
+        <!-- Hora Total -->
+        <ng-container matColumnDef="horaTotal">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+            Hora Total
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.horaTotal }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="shadow-hover-row"
+        ></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

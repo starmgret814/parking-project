@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-category-management',
@@ -16,10 +17,16 @@ export class AppCategoryManagementComponent implements OnInit {
   nuevaCategoria: string = '';
   categorias: { type: string }[] = [];
 
-  constructor() {}
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    // inicialización opcional
+    this.cargarCategorias();
+  }
+
+  cargarCategorias() {
+    this.categoryService.getCategories().subscribe((data) => {
+      this.categorias = data;
+    });
   }
 
   agregarCategoria() {

@@ -28,25 +28,17 @@ import { MatListModule } from '@angular/material/list';
   ],
 })
 export class AddUserDialogComponent {
-  fullName: string = '';
+  name: string = '';
+  paternalLastName: string = '';
+  maternalLastName: string = '';
   email: string = '';
   role: string = '';
   shift: string = '';
-  selectedFeatures: string[] = [];
 
   isChecked: boolean = false;
 
-  roles: string[] = ['Administrador', 'Empleado', 'Supervisor'];
+  roles: string[] = ['Administrador', 'Usuario'];
   shifts: string[] = ['Mañana', 'Tarde', 'Noche'];
-  availableFeatures: string[] = [
-    'Inicio',
-    'Registros',
-    'Salidas',
-    'Categorías',
-    'Usuarios',
-    'Reportes',
-    'Configuración',
-  ];
 
   constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>) {}
 
@@ -55,12 +47,21 @@ export class AddUserDialogComponent {
   }
 
   addUser(
-    fullNameInput: NgModel,
+    nameInput: NgModel,
+    paternalLastNameInput: NgModel,
+    maternalLastNameInput: NgModel,
     emailInput: NgModel,
     roleInput: NgModel,
-    shiftInput: NgModel,
+    shiftInput: NgModel
   ): void {
-    const inputs = [fullNameInput, emailInput, roleInput, shiftInput];
+    const inputs = [
+      nameInput,
+      paternalLastNameInput,
+      maternalLastNameInput,
+      emailInput,
+      roleInput,
+      shiftInput,
+    ];
 
     // Marcar todos como "touched"
     inputs.forEach((input) => input.control.markAsTouched());
@@ -70,22 +71,13 @@ export class AddUserDialogComponent {
     }
 
     this.dialogRef.close({
-      fullName: this.fullName,
+      name: this.name,
+      paternalLastName: this.paternalLastName,
+      maternalLastName: this.maternalLastName,
       email: this.email,
       role: this.role,
       shift: this.shift,
-      features: this.selectedFeatures,
       isChecked: this.isChecked,
     });
-  }
-
-  toggleFeature(feature: string, isChecked: boolean): void {
-    if (isChecked) {
-      this.selectedFeatures.push(feature);
-    } else {
-      this.selectedFeatures = this.selectedFeatures.filter(
-        (f) => f !== feature,
-      );
-    }
   }
 }

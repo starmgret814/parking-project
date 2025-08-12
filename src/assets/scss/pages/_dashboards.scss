@@ -157,19 +157,36 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-tr.example-element-row {
+tr.shadow-hover-row {
   cursor: pointer;
   transition: background-color ease-in-out;
 }
 
-tr.example-element-row:hover {
-  background-color: rgba(28, 58, 138, 0.17); // azul suave al pasar el mouse
+tr.shadow-hover-row:hover {
+  background-color: rgba(168, 44, 58, 0.1); // azul suave al pasar el mouse
 }
 
-tr.example-element-row:active {
-  background-color: rgba(28, 58, 138, 0.1);
+tr.shadow-hover-row:active {
+  background-color: rgba(168, 44, 58, 0.1);
 }
 
-.example-element-row td {
+.shadow-hover-row td {
   border-bottom-width: 0;
+}
+
+.en-curso-row {
+  background-color: rgb(168, 44, 58);
+  color: white;
+}
+
+.icono-rotado {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  margin-top: 110px;
+  margin-left: 38px;
 }

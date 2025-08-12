@@ -3,7 +3,9 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { CoreService } from 'src/app/services/core.service';
+import { PermissionsService } from 'src/app/services/permissions.service';
 
+import { HttpClient } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import { NavService } from '../../services/nav.service';
@@ -43,7 +45,7 @@ export class FullComponent implements OnInit {
   public sidenav: MatSidenav;
   resView = false;
   @ViewChild('content', { static: true }) content!: MatSidenavContent;
-  //get options from service
+
   options = this.settings.getOptions();
   private layoutChangesSubscription = Subscription.EMPTY;
   private isMobileScreen = false;
@@ -57,14 +59,15 @@ export class FullComponent implements OnInit {
 
   constructor(
     private settings: CoreService,
-    private router: Router,
     private breakpointObserver: BreakpointObserver,
+    private permissionsService: PermissionsService,
+    private http: HttpClient,
+    private router: Router
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
       .observe([MOBILE_VIEW, TABLET_VIEW])
       .subscribe((state) => {
-        // SidenavOpened must be reset true when layout changes
         this.options.sidenavOpened = true;
         this.isMobileScreen = state.breakpoints[MOBILE_VIEW];
         if (this.options.sidenavCollapsed == false) {
@@ -72,9 +75,6 @@ export class FullComponent implements OnInit {
         }
       });
 
-    // Initialize project theme with options
-
-    // This is for scroll to top
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((e) => {
@@ -82,7 +82,9 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.navItems = this.filtrarItemsPorPermisos(navItems);
+  }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
@@ -105,6 +107,42 @@ export class FullComponent implements OnInit {
   onSidenavOpenedChange(isOpened: boolean) {
     this.isCollapsedWidthFixed = !this.isOver;
     this.options.sidenavOpened = isOpened;
-    //this.settings.setOptions(this.options);
+  }
+
+  private filtrarItemsPorPermisos(items: any[]): any[] {
+    return items
+      .filter((item) => {
+        return (
+          !item.displayName ||
+          this.permissionsService.tienePermiso(item.displayName)
+        );
+      })
+      .map((item) => {
+        if (item.children) {
+          item.children = this.filtrarItemsPorPermisos(item.children);
+        }
+        return item;
+      });
+  }
+
+  logout() {
+    this.http.post('http://localhost:3001/api/auth/logout', {}).subscribe({
+      next: () => {
+        // Limpiar datos de sesión
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuario');
+
+        // Redirigir a login
+        this.router.navigate(['/authentication/login']);
+      },
+      error: (err) => {
+        console.error('Error al cerrar sesión:', err);
+
+        // Incluso si hay error, puedes forzar la redirección
+        localStorage.removeItem('token');
+        localStorage.removeItem('usuario');
+        this.router.navigate(['/authentication/login']);
+      },
+    });
   }
 }

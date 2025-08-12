@@ -16,7 +16,7 @@ export class AppParkedVehiclesCountComponent implements OnInit {
   constructor(private vehicleService: VehicleService) {}
 
   ngOnInit(): void {
-    this.vehicleService.getTodayParked().subscribe((res) => {
+    this.vehicleService.getParkedVehiclesCount().subscribe((res) => {
       this.parkedCount = res.count;
     });
   }

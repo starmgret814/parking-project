@@ -27,10 +27,7 @@ export class AppSideLoginComponent {
     contrasena: new FormControl('', [Validators.required]),
   });
 
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   submit() {
     const correo = this.form.value.correo ?? '';
@@ -38,10 +35,10 @@ export class AppSideLoginComponent {
 
     this.authService.login({ correo, contrasena }).subscribe({
       next: (res) => {
-        console.log('Login exitoso', res);
         localStorage.setItem('token', res.data.token);
         this.router.navigate(['/dashboard']);
       },
+
       error: (err) => {
         console.error('Error en login:', err);
         alert('Correo o contraseña incorrectos');

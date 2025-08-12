@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MaterialModule } from 'src/app/material.module';
 
@@ -20,6 +20,8 @@ import {
   NgApexchartsModule,
 } from 'ng-apexcharts';
 import { MatButtonModule } from '@angular/material/button';
+
+import { IngresoPorTipoVehiculo } from 'src/app/services/vehicle.service';
 
 interface month {
   value: string;
@@ -51,30 +53,42 @@ export interface vehicleRevenueChart {
   ],
   templateUrl: './vehicle-revenue.component.html',
 })
-export class AppVehicleRevenueComponent {
+export class AppVehicleRevenueComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent = Object.create(null);
+
+  tiposVehiculo: string[] = [];
+  ingresosData: number[] = [];
 
   public vehicleRevenueChart!: Partial<vehicleRevenueChart> | any;
 
-  constructor() {
-    // sales overview chart
+  ngOnInit() {
+    const ingresos = [
+      { total_recaudado: '100', tipo_vehiculo: { nombre: 'Auto' } },
+      { total_recaudado: '200', tipo_vehiculo: { nombre: 'Moto' } },
+      { total_recaudado: '150', tipo_vehiculo: { nombre: 'Bus' } },
+    ];
+
+    this.tiposVehiculo = ingresos.map(
+      (i) => i.tipo_vehiculo?.nombre ?? 'Sin nombre'
+    );
+    this.ingresosData = ingresos.map((i) => Number(i.total_recaudado) || 0);
+
+    this.ingresosData = ingresos.map((i) =>
+      isNaN(Number(i?.total_recaudado)) ? 0 : Number(i.total_recaudado)
+    );
+
     this.vehicleRevenueChart = {
       series: [
         {
           name: 'Ganancias del día',
-          data: [355, 390, 300, 350],
-          color: 'rgba(28, 58, 138, 1)',
+          data: this.ingresosData,
+          color: 'rgba(168, 44, 58, 1)',
         },
       ],
-
       grid: {
         borderColor: 'rgba(0,0,0,0.1)',
         strokeDashArray: 3,
-        xaxis: {
-          lines: {
-            show: false,
-          },
-        },
+        xaxis: { lines: { show: false } },
       },
       plotOptions: {
         bar: { horizontal: false, columnWidth: '35%', borderRadius: [4] },
@@ -82,7 +96,8 @@ export class AppVehicleRevenueComponent {
       chart: {
         type: 'bar',
         height: 390,
-        offsetX: -15,
+        width: '100%',
+        offsetX: 15,
         toolbar: { show: false },
         foreColor: '#adb0bb',
         fontFamily: 'inherit',
@@ -93,19 +108,24 @@ export class AppVehicleRevenueComponent {
       legend: { show: false },
       xaxis: {
         type: 'category',
-        categories: ['Moto', 'Auto/Camioneta', 'Camión', 'Bus'],
+        categories: this.tiposVehiculo,
         labels: {
-          style: { cssClass: 'grey--text lighten-2--text fill-color' },
+          trim: false,
+          style: {
+            cssClass: 'grey--text lighten-2--text fill-color',
+            fontSize: '11.9px',
+          },
         },
       },
       yaxis: {
         show: true,
         min: 0,
-        max: 400,
-        tickAmount: 4,
+        max: 250,
+        tickAmount: 5,
         labels: {
           style: {
             cssClass: 'grey--text lighten-2--text fill-color',
+            fontSize: '12px',
           },
         },
       },
@@ -115,17 +135,22 @@ export class AppVehicleRevenueComponent {
         lineCap: 'butt',
         colors: ['transparent'],
       },
-      tooltip: { theme: 'light' },
+      tooltip: {
+        enabled: true,
+        shared: false,
+        intersect: false,
+        theme: 'light',
+        followCursor: false,
+        onDatasetHover: {
+          highlightDataSeries: true,
+        },
+      },
 
       responsive: [
         {
           breakpoint: 600,
           options: {
-            plotOptions: {
-              bar: {
-                borderRadius: 3,
-              },
-            },
+            plotOptions: { bar: { borderRadius: 3 } },
           },
         },
       ],

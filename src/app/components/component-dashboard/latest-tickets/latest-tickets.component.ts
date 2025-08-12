@@ -1,90 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
-
-interface TicketData {
-  horaIngreso: string;
-  horaSalida: string;
-  placa: string;
-  tipo: string;
-  monto: number;
-  horaTotal: string;
-}
-
-const ELEMENT_DATA: TicketData[] = [
-  {
-    horaIngreso: '08:00',
-    horaSalida: '10:30',
-    placa: 'ABC-123',
-    tipo: 'Auto',
-    monto: 15.0,
-    horaTotal: '2h 30min',
-  },
-  {
-    horaIngreso: '09:15',
-    horaSalida: '11:00',
-    placa: 'XYZ-456',
-    tipo: 'Moto',
-    monto: 8.0,
-    horaTotal: '1h 45min',
-  },
-  {
-    horaIngreso: '09:15',
-    horaSalida: '11:00',
-    placa: 'XYZ-456',
-    tipo: 'Moto',
-    monto: 8.0,
-    horaTotal: '1h 45min',
-  },
-  {
-    horaIngreso: '08:00',
-    horaSalida: '10:30',
-    placa: 'ABC-123',
-    tipo: 'Auto',
-    monto: 15.0,
-    horaTotal: '2h 30min',
-  },
-  {
-    horaIngreso: '09:15',
-    horaSalida: '11:00',
-    placa: 'XYZ-456',
-    tipo: 'Moto',
-    monto: 8.0,
-    horaTotal: '1h 45min',
-  },
-  {
-    horaIngreso: '09:15',
-    horaSalida: '11:00',
-    placa: 'XYZ-456',
-    tipo: 'Moto',
-    monto: 8.0,
-    horaTotal: '1h 45min',
-  },
-  {
-    horaIngreso: '08:00',
-    horaSalida: '10:30',
-    placa: 'ABC-123',
-    tipo: 'Auto',
-    monto: 15.0,
-    horaTotal: '2h 30min',
-  },
-];
+import { VehicleService, TicketData } from 'src/app/services/vehicle.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-latest-tickets',
   imports: [CommonModule, MaterialModule],
   templateUrl: './latest-tickets.component.html',
+  styleUrls: ['./latest-tickets.component.scss'],
 })
-export class AppLatestTicketsComponent {
+export class AppLatestTicketsComponent implements OnInit {
   displayedColumns: string[] = [
     'index',
-    'horaIngreso',
-    'horaSalida',
-    'placa',
-    'tipo',
-    'monto',
-    'horaTotal',
+    'hora_ingreso',
+    'hora_salida',
+    'placa_vehiculo',
+    'tipo_vehiculo_nombre',
+    'pago_total',
   ];
 
-  dataSource = ELEMENT_DATA;
+  dataSource: TicketData[] = [];
+
+  constructor(private vehicleService: VehicleService, private router: Router) {}
+
+  ngOnInit() {
+    this.vehicleService.getTickets().subscribe({
+      next: (tickets) => {
+        this.dataSource = tickets;
+      },
+      error: (err) => {
+        console.error('Error al cargar tickets', err);
+      },
+    });
+  }
+
+  onRowClick(row: TicketData) {
+    if (!row.hora_salida) {
+      this.router.navigate(['/ui-components/salidas']);
+    }
+  }
 }

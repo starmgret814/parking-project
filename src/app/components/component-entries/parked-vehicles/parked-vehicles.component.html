@@ -32,10 +32,10 @@
         >
           <!-- Sección izquierda -->
           <div style="flex: 1; max-width: 130px; min-width: 130px">
-            <div class="f-w-575 f-s-18">{{ vehicle.plate }}</div>
+            <div class="f-w-500 f-s-18">{{ vehicle.plate }}</div>
 
             <div class="m-t-8">
-              <span class="vehicle-badge f-w-500 f-s-13">
+              <span class="label-badge f-w-500 f-s-13">
                 {{ vehicle.type }}
               </span>
             </div>
@@ -48,8 +48,8 @@
           <!-- Sección centro -->
           <div class="muted-text m-t-24">
             <div class="f-s-14 text-muted">
-              Fecha: {{ vehicle.entryTime | date: "dd/MM/yyyy" }}<br />
-              Entrada: {{ vehicle.entryTime | date: "hh:mm:ss a" }}
+              Fecha: {{ vehicle.entryTime | date : "dd/MM/yyyy" }}<br />
+              Entrada: {{ vehicle.entryTime | date : "hh:mm:ss a" }}
             </div>
 
             <div class="m-t-8">
@@ -67,7 +67,7 @@
           <div class="text-end" style="margin-right: 10px">
             <div class="poppins-font muted-text f-s-14">Monto Pagado</div>
             <div class="f-w-600 f-s-28 m-t-8" style="color: #000000">
-              S/ {{ calculateAmount(vehicle) | number: "1.2-2" }}
+              S/ {{ calculateAmount(vehicle) | number : "1.2-2" }}
             </div>
 
             <button

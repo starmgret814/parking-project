@@ -1,0 +1,96 @@
+@use "../variables" as *;
+
+.mat-calendar {
+  background-color: #f5f7ff !important;
+  color: #a82c3a;
+}
+
+.mat-calendar-body-cell-content {
+  background-color: transparent !important;
+}
+
+.mat-calendar-body-selected {
+  background-color: #a82c3a !important;
+  border: 5px solid #a82c3a !important;
+}
+
+.mat-calendar-body-cell:hover
+  .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+    .mat-calendar-body-range-start
+  ):not(.mat-calendar-body-range-end) {
+  background-color: #b7c7e8 !important;
+}
+
+.mat-datepicker-actions {
+  background-color: #f5f7ff !important;
+}
+
+.mat-calendar-period-button {
+  color: #a82c3a !important;
+}
+
+.mat-calendar-previous-button,
+.mat-calendar-next-button {
+  color: #a82c3a !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+  width: 20px !important;
+  height: 20px !important;
+  color: rgb(26, 27, 31) !important;
+}
+
+.mat-form-field.mat-focused .mat-datepicker-toggle .mat-icon {
+  color: #a82c3a;
+}
+
+.mat-datepicker-toggle .mat-mdc-icon-button {
+  width: 0px !important;
+  height: 0px !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+  margin-right: 30px !important;
+  margin-bottom: 20px !important;
+}
+
+.company-settings-card {
+  padding: 24px;
+  margin: 20px;
+}
+
+.form-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.logo-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+
+  img {
+    margin-top: 10px;
+    height: 80px;
+    border-radius: 8px;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 30px;
+}

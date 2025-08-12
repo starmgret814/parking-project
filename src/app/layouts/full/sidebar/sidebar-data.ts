@@ -24,7 +24,7 @@ export const navItems: NavItem[] = [
     navCap: 'Gestión',
   },
   {
-    displayName: 'Categorías',
+    displayName: 'Categorias',
     iconName: 'chart-tree',
     route: '/ui-components/categorias',
   },
@@ -49,6 +49,6 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Ajustes',
     iconName: 'settings',
-    route: '/ui-components/ajustes',
+    route: '/ui-components/settings',
   },
 ];
