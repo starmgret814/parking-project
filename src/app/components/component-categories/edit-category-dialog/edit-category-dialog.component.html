@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Editar Categoría</h2>
+
+<mat-dialog-content style="overflow: hidden" class="p-b-0">
+  <!-- Edición Categoría -->
+  <form #form="ngForm">
+    <label class="f-w-500 heading-tag">Nombre de la categoría*</label>
+    <mat-form-field appearance="outline" class="w-100 m-t-10 m-b-0">
+      <input
+        matInput
+        placeholder="Nombre"
+        [(ngModel)]="nombre"
+        name="nombre"
+        #categoryInput="ngModel"
+        required
+      />
+      <mat-error *ngIf="categoryInput.invalid && categoryInput.touched">
+        El nombre es obligatorio.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="m-b-8">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="form.invalid"
+    (click)="editCategory(categoryInput)"
+  >
+    Guardar Cambios
+  </button>
+</mat-dialog-actions>

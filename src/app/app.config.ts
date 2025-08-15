@@ -10,7 +10,7 @@ import {
 } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthErrorInterceptor } from './auth/auth.interceptor';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 import { routes } from './app.routes';
 import {
@@ -71,7 +71,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthErrorInterceptor,
+      useClass: AuthInterceptor,
       multi: true,
     },
     provideClientHydration(),

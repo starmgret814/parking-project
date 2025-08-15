@@ -1,32 +1,27 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MaterialModule } from 'src/app/material.module';
-
 import {
   ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexLegend,
-  ApexStroke,
-  ApexTooltip,
   ApexAxisChartSeries,
+  ApexDataLabels,
   ApexXAxis,
   ApexYAxis,
-  ApexGrid,
   ApexPlotOptions,
   ApexFill,
+  ApexTooltip,
+  ApexStroke,
+  ApexLegend,
+  ApexGrid,
   ApexMarkers,
-  ApexResponsive,
-  NgApexchartsModule,
 } from 'ng-apexcharts';
 import { MatButtonModule } from '@angular/material/button';
-
-import { IngresoPorTipoVehiculo } from 'src/app/services/vehicle.service';
-
-interface month {
-  value: string;
-  viewValue: string;
-}
+import { NgApexchartsModule } from 'ng-apexcharts';
+import {
+  VehicleService,
+  IngresoPorTipoVehiculo,
+} from 'src/app/services/vehicle.service';
 
 export interface vehicleRevenueChart {
   series: ApexAxisChartSeries;
@@ -40,120 +35,93 @@ export interface vehicleRevenueChart {
   stroke: ApexStroke;
   legend: ApexLegend;
   grid: ApexGrid;
-  marker: ApexMarkers;
+  markers: ApexMarkers;
 }
 
 @Component({
   selector: 'app-vehicle-revenue',
+  standalone: true,
   imports: [
     MaterialModule,
     TablerIconsModule,
     NgApexchartsModule,
+    CommonModule,
     MatButtonModule,
   ],
   templateUrl: './vehicle-revenue.component.html',
 })
 export class AppVehicleRevenueComponent implements OnInit {
-  @ViewChild('chart') chart: ChartComponent = Object.create(null);
-
   tiposVehiculo: string[] = [];
   ingresosData: number[] = [];
 
-  public vehicleRevenueChart!: Partial<vehicleRevenueChart> | any;
+  vehicleRevenueChart!: vehicleRevenueChart;
+
+  constructor(private vehicleService: VehicleService) {}
 
   ngOnInit() {
-    const ingresos = [
-      { total_recaudado: '100', tipo_vehiculo: { nombre: 'Auto' } },
-      { total_recaudado: '200', tipo_vehiculo: { nombre: 'Moto' } },
-      { total_recaudado: '150', tipo_vehiculo: { nombre: 'Bus' } },
-    ];
+    this.vehicleService.getIngresosPorTipoVehiculo().subscribe(
+      (ingresos: IngresoPorTipoVehiculo[]) => {
+        this.tiposVehiculo = ingresos.map(
+          (i) => i.tipo_vehiculo?.nombre ?? 'Sin nombre'
+        );
+        this.ingresosData = ingresos.map((i) =>
+          isNaN(Number(i.total_recaudado)) ? 0 : Number(i.total_recaudado)
+        );
 
-    this.tiposVehiculo = ingresos.map(
-      (i) => i.tipo_vehiculo?.nombre ?? 'Sin nombre'
+        this.vehicleRevenueChart = {
+          series: [
+            {
+              name: 'Ganancias del día',
+              data: this.ingresosData,
+              color: 'rgba(168, 44, 58, 1)',
+            },
+          ],
+          chart: {
+            type: 'bar',
+            height: 350,
+            toolbar: { show: false },
+          },
+          dataLabels: { enabled: false },
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: '35%',
+              borderRadius: 4,
+            },
+          },
+          xaxis: {
+            categories: this.tiposVehiculo,
+          },
+          yaxis: {
+            min: 0,
+            max: Math.ceil(Math.max(...this.ingresosData) / 10) * 10,
+            tickAmount: 5,
+          },
+          fill: {
+            opacity: 1,
+          },
+          stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent'],
+          },
+          tooltip: {
+            enabled: true,
+          },
+          legend: {
+            show: false,
+          },
+          grid: {
+            borderColor: '#f1f1f1',
+          },
+          markers: {
+            size: 0,
+          },
+        };
+      },
+      (error) => {
+        console.error('Error al obtener ingresos:', error);
+      }
     );
-    this.ingresosData = ingresos.map((i) => Number(i.total_recaudado) || 0);
-
-    this.ingresosData = ingresos.map((i) =>
-      isNaN(Number(i?.total_recaudado)) ? 0 : Number(i.total_recaudado)
-    );
-
-    this.vehicleRevenueChart = {
-      series: [
-        {
-          name: 'Ganancias del día',
-          data: this.ingresosData,
-          color: 'rgba(168, 44, 58, 1)',
-        },
-      ],
-      grid: {
-        borderColor: 'rgba(0,0,0,0.1)',
-        strokeDashArray: 3,
-        xaxis: { lines: { show: false } },
-      },
-      plotOptions: {
-        bar: { horizontal: false, columnWidth: '35%', borderRadius: [4] },
-      },
-      chart: {
-        type: 'bar',
-        height: 390,
-        width: '100%',
-        offsetX: 15,
-        toolbar: { show: false },
-        foreColor: '#adb0bb',
-        fontFamily: 'inherit',
-        sparkline: { enabled: false },
-      },
-      dataLabels: { enabled: false },
-      markers: { size: 0 },
-      legend: { show: false },
-      xaxis: {
-        type: 'category',
-        categories: this.tiposVehiculo,
-        labels: {
-          trim: false,
-          style: {
-            cssClass: 'grey--text lighten-2--text fill-color',
-            fontSize: '11.9px',
-          },
-        },
-      },
-      yaxis: {
-        show: true,
-        min: 0,
-        max: 250,
-        tickAmount: 5,
-        labels: {
-          style: {
-            cssClass: 'grey--text lighten-2--text fill-color',
-            fontSize: '12px',
-          },
-        },
-      },
-      stroke: {
-        show: true,
-        width: 3,
-        lineCap: 'butt',
-        colors: ['transparent'],
-      },
-      tooltip: {
-        enabled: true,
-        shared: false,
-        intersect: false,
-        theme: 'light',
-        followCursor: false,
-        onDatasetHover: {
-          highlightDataSeries: true,
-        },
-      },
-
-      responsive: [
-        {
-          breakpoint: 600,
-          options: {
-            plotOptions: { bar: { borderRadius: 3 } },
-          },
-        },
-      ],
-    };
   }
 }

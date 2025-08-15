@@ -15,6 +15,7 @@ export class AppVehiclesEntriesComponent implements OnInit {
 
   vehiclePlate: string = '';
   vehicleType: string = '';
+  vehicleRate: number | null = null;
   vehicleTypes: string[] = ['Moto', 'Auto/Camioneta', 'Camión', 'Bus'];
 
   constructor() {}

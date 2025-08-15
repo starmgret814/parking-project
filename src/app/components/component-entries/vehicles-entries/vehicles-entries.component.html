@@ -25,13 +25,23 @@
     </mat-form-field>
 
     <!-- Tipo de Vehículo -->
-    <mat-form-field class="w-100 m-b-24" appearance="outline">
+    <mat-form-field class="w-100 m-b-16" appearance="outline">
       <mat-label>Tipo de Vehículo</mat-label>
       <mat-select [(ngModel)]="vehicleType">
         <mat-option *ngFor="let type of vehicleTypes" [value]="type">
           {{ type }}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+
+    <!-- Tarifa -->
+    <mat-form-field class="w-100 m-b-24" appearance="outline" color="primary">
+      <mat-label>Tarifa</mat-label>
+      <input
+        matInput
+        class="input-auth"
+        [(ngModel)]="vehiclePlate"
+      />
     </mat-form-field>
 
     <!-- Botón -->

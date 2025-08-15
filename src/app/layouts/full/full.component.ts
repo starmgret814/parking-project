@@ -136,7 +136,7 @@ export class FullComponent implements OnInit {
         this.router.navigate(['/authentication/login']);
       },
       error: (err) => {
-        console.error('Error al cerrar sesión:', err);
+        console.error('Error al cerrar sesiónaaaa:', err);
 
         // Incluso si hay error, puedes forzar la redirección
         localStorage.removeItem('token');

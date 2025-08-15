@@ -24,6 +24,17 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
+  nombreCompleto: string = '';
+  ngOnInit() {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      this.nombreCompleto = `${user.nombre} ${user.apellido_p} ${user.apellido_m}`;
+    } else {
+      this.nombreCompleto = 'Usuario';
+    }
+  }
+
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();

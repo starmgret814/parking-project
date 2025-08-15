@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
 
 interface DashboardData {
   cantidadVehiculosEstacionados: number;
@@ -34,16 +33,13 @@ export interface TicketData {
   providedIn: 'root',
 })
 export class VehicleService {
-  private apiUrl = 'http://localhost:3001/api/inicio/data'; // URL de la API
+  private apiUrl = 'http://localhost:3001/api/inicio/data';
 
   constructor(private http: HttpClient) {}
 
   private getDashboardData(): Observable<DashboardData> {
-    const token = localStorage.getItem('token') ?? '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     return this.http
-      .get<{ success: boolean; data: DashboardData }>(this.apiUrl, { headers })
+      .get<{ success: boolean; data: DashboardData }>(this.apiUrl)
       .pipe(map((res) => res.data));
   }
 
@@ -72,25 +68,18 @@ export class VehicleService {
   }
 
   getIngresosPorTipoVehiculo(): Observable<IngresoPorTipoVehiculo[]> {
-    const token = localStorage.getItem('token') ?? '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     return this.http
       .get<{
         success: boolean;
         data: { ingresosPorTipoVehiculo: IngresoPorTipoVehiculo[] };
-      }>(this.apiUrl, { headers })
+      }>(this.apiUrl)
       .pipe(map((res) => res.data.ingresosPorTipoVehiculo));
   }
 
   getTickets(): Observable<TicketData[]> {
-    const token = localStorage.getItem('token') ?? '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
     return this.http
       .get<{ success: boolean; data: { ticketsGenerados: TicketData[] } }>(
-        this.apiUrl,
-        { headers }
+        this.apiUrl
       )
       .pipe(map((res) => res.data.ticketsGenerados));
   }

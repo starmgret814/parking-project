@@ -1,10 +1,12 @@
-<mat-form-field appearance="outline" class="m-t-12" style="width: 40%">
+<mat-form-field appearance="outline" style="width: 40%">
   <i matPrefix class="fi fi-rs-search m-l-8"></i>
-  <input matInput class="placeholder-light" placeholder="Buscar categoría" />
+  <input
+    matInput
+    placeholder="Buscar categoría"
+    (keyup)="filtrarCategorias($event)"
+  />
 </mat-form-field>
-<!-- ////////////////////////////////////// -->
-<!-- ////////////////////////////////////// -->
-<!-- ////////////////////////////////////// -->
+
 <mat-card class="card-style">
   <mat-card-content>
     <div class="d-flex flex-column gap-3">
@@ -43,7 +45,7 @@
       ></i>
     </div>
 
-    <ng-container *ngFor="let vehicle of categorias">
+    <ng-container *ngFor="let category of categorias">
       <mat-card
         class="m-b-20"
         style="border: 1px solid #ddd; padding: 24px; height: 90px"
@@ -51,23 +53,25 @@
         <div
           class="d-flex justify-content-between align-items-center flex-wrap"
         >
-          <!-- Izquierda: Tipo + Íconos -->
+          <!-- Izquierda: Nombre + Íconos -->
           <div
             class="d-flex align-items-center gap-2"
             style="flex: 1; min-width: 200px"
           >
             <div class="f-w-500 f-s-18">
-              {{ vehicle.type }}
+              {{ category.nombre }}
             </div>
             <i
               class="fi fi-rr-pencil icon-blue-lg m-l-10"
               matTooltip="Editar"
               style="cursor: pointer; font-size: 18px"
+              (click)="seleccionarCategoriaParaEditar(category)"
             ></i>
             <i
               class="fi fi-rr-trash icon-blue-lg m-l-10"
               matTooltip="Eliminar"
               style="cursor: pointer; font-size: 18px"
+              (click)="eliminarCategoria(category.id)"
             ></i>
           </div>
 
@@ -77,6 +81,7 @@
               mat-flat-button
               color="accent"
               style="min-width: 140px; margin-right: 35px"
+              (click)="openTarifaDialog(category)"
             >
               Tarifas
             </button>
