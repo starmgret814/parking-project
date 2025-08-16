@@ -1,4 +1,6 @@
-<h2 mat-dialog-title class="f-w-600">Agregar Nuevo Usuario</h2>
+<h2 mat-dialog-title class="f-w-600">
+  Editar Usuario
+</h2>
 
 <div mat-dialog-content>
   <!-- Nombre completo -->
@@ -78,25 +80,6 @@
     </mat-form-field>
   </div>
 
-  <!-- Contraseña -->
-  <div>
-    <label class="f-w-500 heading-tag">Contraseña *</label>
-    <mat-form-field appearance="outline" class="w-100 m-b-4 m-t-4">
-      <input
-        matInput
-        type="password"
-        name="password"
-        required
-        [(ngModel)]="password"
-        #passwordInput="ngModel"
-        placeholder="Ingrese la contraseña"
-      />
-      <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
-        La contraseña es obligatoria.
-      </mat-error>
-    </mat-form-field>
-  </div>
-
   <!-- Rol -->
   <div>
     <mat-label class="f-w-500 heading-tag">Rol *</mat-label>
@@ -142,7 +125,7 @@
 
 <mat-dialog-actions align="end" class="m-b-20 gap-2">
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-flat-button color="primary" (click)="addUser()">
-    Agregar Usuario
+  <button mat-flat-button color="primary" (click)="updateUser()">
+    Guardar
   </button>
 </mat-dialog-actions>

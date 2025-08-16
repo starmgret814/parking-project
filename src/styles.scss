@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
 
 html,
 body {
@@ -36,4 +37,14 @@ body {
 .fi.fi-rs-search {
   font-size: 12px !important;
   color: rgba(0, 0, 0, 0.4) !important;
+}
+
+:root {
+  @include mat.snack-bar-overrides(
+    (
+      supporting-text-color: #000000,
+      button-color: #a82c3a,
+      container-color: #ffffff,
+    )
+  );
 }

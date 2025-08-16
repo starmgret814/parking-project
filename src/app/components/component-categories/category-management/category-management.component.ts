@@ -92,16 +92,25 @@ export class AppCategoryManagementComponent implements OnInit {
         this.cargarCategorias();
       },
       error: (err) => {
-        this.snackBar.open(
-          err.error?.error || 'Error al crear categoría',
-          'Cerrar',
-          {
+        if (err.error && err.error.errors) {
+          err.error.errors.forEach((e: any) => {});
+
+          const mensaje = err.error.errors[0].msg;
+          this.snackBar.open(mensaje, 'Cerrar', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'bottom',
             panelClass: ['custom-snackbar'],
-          }
-        );
+          });
+        } else {
+          console.error('Error desconocido:', err);
+          this.snackBar.open('Ocurrió un error inesperado', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+          });
+        }
       },
     });
   }
@@ -158,12 +167,25 @@ export class AppCategoryManagementComponent implements OnInit {
             });
           },
           error: (err) => {
-            this.snackBar.open('Error al guardar categoría', 'Cerrar', {
-              duration: 3000,
-              horizontalPosition: 'right',
-              verticalPosition: 'bottom',
-              panelClass: ['custom-snackbar'],
-            });
+            if (err.error && err.error.errors) {
+              err.error.errors.forEach((e: any) => {});
+
+              const mensaje = err.error.errors[0].msg;
+              this.snackBar.open(mensaje, 'Cerrar', {
+                duration: 3000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['custom-snackbar'],
+              });
+            } else {
+              console.error('Error desconocido:', err);
+              this.snackBar.open('Ocurrió un error inesperado', 'Cerrar', {
+                duration: 3000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['custom-snackbar'],
+              });
+            }
           },
         });
     }
@@ -213,7 +235,6 @@ export class AppCategoryManagementComponent implements OnInit {
               return;
             }
 
-            // Importante: import { forkJoin } from 'rxjs';
             const updateObservables = tarifasParaActualizar.map(
               (tarifaEditada: any) =>
                 this.categoryService.updateRate(tarifaEditada.id_tarifa, {
@@ -232,26 +253,51 @@ export class AppCategoryManagementComponent implements OnInit {
                   panelClass: ['custom-snackbar'],
                 });
               },
-              error: () => {
-                this.snackBar.open('Error al guardar tarifas', 'Cerrar', {
-                  duration: 3000,
-                  horizontalPosition: 'right',
-                  verticalPosition: 'bottom',
-                  panelClass: ['custom-snackbar'],
-                });
+              error: (err) => {
+                if (err.error && err.error.errors) {
+                  err.error.errors.forEach((e: any) => {});
+
+                  const mensaje = err.error.errors[0].msg;
+                  this.snackBar.open(mensaje, 'Cerrar', {
+                    duration: 3000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'bottom',
+                    panelClass: ['custom-snackbar'],
+                  });
+                } else {
+                  console.error('Error desconocido:', err);
+                  this.snackBar.open('Ocurrió un error inesperado', 'Cerrar', {
+                    duration: 3000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'bottom',
+                    panelClass: ['custom-snackbar'],
+                  });
+                }
               },
             });
           }
         });
       },
       error: (err) => {
-        this.snackBar.open('Error al obtener tarifas', 'Cerrar', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'bottom',
-          panelClass: ['custom-snackbar'],
-        });
-        console.error(err);
+        if (err.error && err.error.errors) {
+          err.error.errors.forEach((e: any) => {});
+
+          const mensaje = err.error.errors[0].msg;
+          this.snackBar.open(mensaje, 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+          });
+        } else {
+          console.error('Error desconocido:', err);
+          this.snackBar.open('Ocurrió un error inesperado', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+          });
+        }
       },
     });
   }
@@ -268,16 +314,25 @@ export class AppCategoryManagementComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.snackBar.open(
-          err.error?.error || 'Error al eliminar categoría',
-          'Cerrar',
-          {
+        if (err.error && err.error.errors) {
+          err.error.errors.forEach((e: any) => {});
+
+          const mensaje = err.error.errors[0].msg;
+          this.snackBar.open(mensaje, 'Cerrar', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'bottom',
             panelClass: ['custom-snackbar'],
-          }
-        );
+          });
+        } else {
+          console.error('Error desconocido:', err);
+          this.snackBar.open('Ocurrió un error inesperado', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+          });
+        }
       },
     });
   }

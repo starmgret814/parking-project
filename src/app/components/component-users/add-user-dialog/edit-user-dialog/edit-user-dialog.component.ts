@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,9 +16,9 @@ import { MatListModule } from '@angular/material/list';
 import { UserService, Rol } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'app-add-user-dialog',
+  selector: 'app-edit-user-dialog',
   standalone: true,
-  templateUrl: './add-user-dialog.component.html',
+  templateUrl: './edit-user-dialog.component.html',
   imports: [
     CommonModule,
     FormsModule,
@@ -28,12 +32,11 @@ import { UserService, Rol } from 'src/app/services/users.service';
     MatListModule,
   ],
 })
-export class AddUserDialogComponent {
+export class EditUserDialogComponent {
   name: string = '';
   paternalLastName: string = '';
   maternalLastName: string = '';
   email: string = '';
-  password: string = '';
 
   roles: Rol[] = [];
   roleId: number | null = null;
@@ -47,21 +50,31 @@ export class AddUserDialogComponent {
   shift: string = '';
 
   constructor(
-    public dialogRef: MatDialogRef<AddUserDialogComponent>,
-    private userService: UserService
+    public dialogRef: MatDialogRef<EditUserDialogComponent>,
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
     this.userService.getRol().subscribe((data) => {
       this.roles = data;
     });
+
+    if (this.data) {
+      this.name = this.data.nombre;
+      this.paternalLastName = this.data.apellido_p;
+      this.maternalLastName = this.data.apellido_m;
+      this.email = this.data.correo;
+      this.roleId = this.data.id_rol;
+      this.shift = this.data.turno;
+    }
   }
 
   close(): void {
     this.dialogRef.close();
   }
 
-  addUser(): void {
+  updateUser(): void {
     if (this.roleId === 1) {
       this.shift = 'Administrador';
     }
@@ -71,21 +84,18 @@ export class AddUserDialogComponent {
       !this.paternalLastName ||
       !this.maternalLastName ||
       !this.email ||
-      !this.password ||
-      !this.roleId ||
-      (!this.shift && this.roleId !== 1)
+      !this.roleId
     ) {
       return;
     }
 
     this.dialogRef.close({
-      name: this.name,
-      paternalLastName: this.paternalLastName,
-      maternalLastName: this.maternalLastName,
-      email: this.email,
-      passwordInput: this.password,
-      roleId: this.roleId,
-      shift: this.shift,
+      nombre: this.name,
+      apellido_p: this.paternalLastName,
+      apellido_m: this.maternalLastName,
+      correo: this.email,
+      id_rol: this.roleId,
+      turno: this.shift,
     });
   }
 }

@@ -18,6 +18,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { navItems } from './sidebar/sidebar-data';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -33,6 +34,7 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
     NgScrollbarModule,
     TablerIconsModule,
     HeaderComponent,
+    MatSnackBarModule,
   ],
   templateUrl: './full.component.html',
   styleUrls: [],
@@ -62,7 +64,8 @@ export class FullComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private permissionsService: PermissionsService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
@@ -136,12 +139,28 @@ export class FullComponent implements OnInit {
         this.router.navigate(['/authentication/login']);
       },
       error: (err) => {
-        console.error('Error al cerrar sesiónaaaa:', err);
-
-        // Incluso si hay error, puedes forzar la redirección
         localStorage.removeItem('token');
         localStorage.removeItem('usuario');
         this.router.navigate(['/authentication/login']);
+        if (err.error && err.error.errors) {
+          err.error.errors.forEach((e: any) => {});
+
+          const mensaje = err.error.errors[0].msg;
+          this.snackBar.open(mensaje, 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+          });
+        } else {
+          console.error('Error desconocido:', err);
+          this.snackBar.open('Ocurrió un error inesperado', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar'],
+          });
+        }
       },
     });
   }
