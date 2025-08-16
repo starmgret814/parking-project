@@ -73,7 +73,7 @@ export class AppVehicleRevenueComponent implements OnInit {
             {
               name: 'Ganancias del día',
               data: this.ingresosData,
-              color: 'rgba(168, 44, 58, 1)',
+              color: 'rgba(28, 58, 138, 1)',
             },
           ],
           chart: {
