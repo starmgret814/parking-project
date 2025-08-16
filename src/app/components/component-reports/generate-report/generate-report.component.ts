@@ -40,6 +40,7 @@ export class AppGenerateReportComponent {
    
   readonly fechaInicio = new FormControl<Date | null>(null);
   readonly fechaFin = new FormControl<Date | null>(null);
+   
   
    dataLoaded = false;
 
